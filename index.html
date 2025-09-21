@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Explorer | Computer Science Education Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 0.5rem;
+            margin-left: 2rem;
+        }
+        
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 0.3rem;
+            outline: none;
+            width: 150px;
+        }
+        
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Featured Articles */
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .articles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .article-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .article-card:hover .article-img img {
+            transform: scale(1.05);
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        
+        /* About Section */
+        .about {
+            background: var(--light);
+            padding: 4rem 0;
+            margin: 3rem 0;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Categories Section */
+        .categories {
+            padding: 3rem 0;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .category-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        /* Services Section */
+        .services {
+            background: var(--light);
+            padding: 4rem 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-details p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .search-box {
+                margin: 1rem 0 0;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .search-box input {
+                width: 100%;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class=""></i>
+                <h1>Platform Security</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#Categories">Categories</a></li>
+                    <li><a href="#Services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h2>Safety on technology innovation for Protection and Security</h2>
+            <p> Involves a layered approach to protect an entire computing system—from its hardware and operating system to its software and applications—from cyber threats.</p>
+            <a href="#articles" class="btn">Explore Information</a>
+        </div>
+    </section>
+
+    <!-- Featured Articles -->
+    <section class="container">
+        <h2 class="section-title">Cybersecurity Attacks</h2>
+        <div class="articles">
+            <div class="article-card">
+                <div class="article-img">
+                    <img src="phis1.webp" alt="Programming code on a computer screen with a developer working">
+                </div>
+                <div class="article-content">
+                    <h3>Phishing</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> May 15, 2023</span>
+                        <span><i class="far fa-clock"></i> 10 min read</span>
+                    </div>
+                    <p> These attacks use social engineering tactics, such as creating a sense of urgency or fear, to manipulate victims into clicking malicious links, downloading harmful files, or visiting fake websites that steal their data.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+             
+            <div class="article-card">
+                <div class="article-img">
+                    <img src="vishing.png" alt="Close-up of programming code on a computer screen">
+                </div>
+                <div class="article-content">
+                    <h3>Vishing</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> June 2, 2023</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <p>Attackers often impersonate trusted organizations, like banks or government agencies, to gain the victim's trust and create a sense of urgency to pressure them into sharing information for financial gain or other malicious purposes.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+             
+            <div class="article-card">
+                <div class="article-img">
+                    <img src="ran1.jpg" alt="Close-up of programming code on a computer screen">
+                </div>
+                <div class="article-content">
+                    <h3>Ransomware</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> June 2, 2023</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <p>These attacks spread through methods like phishing emails, malicious links, and compromised websites, causing significant financial and operational disruption to individuals and organizations. Victims typically have three options: pay the ransom, attempt to remove the malware, or restore from a clean backup. </p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+             
+            <div class="article-card">
+                <div class="article-img">
+                    <img src="malware 1.jpg" alt="Close-up of programming code on a computer screen">
+                </div>
+                <div class="article-content">
+                    <h3>Malware</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> June 2, 2023</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <p>Involves malicious software designed to infiltrate computer systems, networks, or devices to steal data, cause damage, disrupt operations, or gain unauthorized access, often for financial gain.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="article-card">
+                <div class="article-img">
+                    <img src="worm1.webp" alt="Close-up of programming code on a computer screen">
+                </div>
+                <div class="article-content">
+                    <h3>Worm</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> June 2, 2023</span>
+                        <span><i class="far fa-clock"></i> 8 min read</span>
+                    </div>
+                    <p>Type of malware or malicious software that can replicate rapidly and spread across devices within a network. As it spreads, a worm consumes bandwidth, overloading infected systems and making them unreliable or unavailable.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <div class="article-card">
+                <div class="article-img">
+                    <img src="viruses.webp" alt="Data visualization dashboard with charts and graphs">
+                </div>
+                <div class="article-content">
+                    <h3>Viruses</h3>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> June 10, 2023</span>
+                        <span><i class="far fa-clock"></i> 12 min read</span>
+                    </div>
+                    <p> Computer infection by malicious software, or malware, designed to replicate and spread to other systems, causing damage like data loss, system slowdowns, or unauthorized access.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container about-content">
+            <div class="about-text">
+                <h2 class="section-title"> Platform Security and Cybersecurity</h2>
+                <p> Platform security involves a centralized approach to protect the entire IT infrastructure, including its components and layers, by integrating and managing security controls and policies across the entire "platform".</p>
+                <p>Cyber security is the broader field encompassing technologies, processes, and controls used to defend computer systems, networks, and data from digital attacks and unauthorized access.</p>
+                <p>CIA Triad - Confidentiality,Integrity,Availability.</p>
+                <p>Authentication Methods- Something you know,you have,you are.</p>
+                <p>Authetication Types - SFA & MFA.</p>
+                <p>Risk Management Terminology - asset,vulnerability,threat.</p>
+                <p>Risk Treatment - Avoidance,Acceptance,Mitigation,Risk Tranference.</p>
+                
+                <a href="#" class="btn">Learn More About Us</a>
+            </div>
+            <div class="about-image">
+                <img src="ps4.png" alt="Team of educators and developers collaborating in a modern office">
+            </div>
+        </div>
+    </section>
+
+     <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Platform Security</h2>
+            <div class="category-grid">
+               
+            
+                
+                <div class="category-card">
+                    <h3>Physical Security</h3>
+                    <p>Protecting hardware from theft or tampering.</p>
+                </div>
+                
+                <div class="category-card">
+                    <h3>Firmware & Boot Security</h3>
+                    <p>Secure boot, BIOS/UEFI passwords.</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3>Oprating System Security</h3>
+                    <p>Patch management, user privilege control.</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3>Application  Security</h3>
+                    <p>Sandboxing, code signing, app permissions.</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3>Network Security</h3>
+                    <p>Firewalls, VPNs, intrusion detection/prevention.</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3>Data  Security</h3>
+                    <p>Encryption at rest and in transit.</p>
+                </div>
+
+
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title"> Computing Platforms</h2>
+            <div class="category-grid">
+               
+                
+                <div class="category-card">   
+                    <h3>Hardware</h3>
+                    <p>Physical components (CPU, memory, storage, peripherals).</p>
+                </div>
+                
+                <div class="category-card">
+                  
+                    <h3>Firmware</h3>
+                    <p>BIOS/UEFI, device firmware, initialization processes.</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3>Operating System</h3>
+                    <p>Manages hardware, runs applications, enforces security.</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3> Applications</h3>
+                    <p>Software that provides user-level services.</p>
+                </div>
+
+                <div class="category-card">
+                    <h3> OTHER PLATFORMS</h3>
+                    <p>MOBILE PLATFORMS</p>
+                     <p>DESKTOP PLATFORMS </p>
+                      <p>CLOUD PLATFORMS</p>
+                       <p>VIRTUALIZATION PLATFORMS</p>
+                </div>
+    </section>
+
+     <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title"> Virtualization </h2>
+            <div class="category-grid">
+               
+                  <div class="category-card">
+                    <h3>Virtualization</h3>
+                    <p>A powerful technology that enables multiple
+                        virtual machines (VMs) to run concurrently on a single physical
+                    server.</p>
+                    
+                </div>
+                  
+
+                <div class="category-card">
+                    <h3>TYPES</h3>
+                    <p>SERVER-Multiple virtual servers on one physical server.Most common type.</p>
+                     <p>DESKTOP-Virtual desktop infrastructure (VDI).Remote desktop access.</p>
+                     <p>NETWORK-Virtual networks independent of physical hardware.</p>
+                     <p>STORAGE-Pool storage from multiple devices.</p>
+                    <p>APPLICTION-Applications run in isolated environments.</p>
+                </div>
+                
+                <div class="category-card">
+                    <h3>BENEFITS</h3>
+                  <p>Cost Reduction</p>
+                  <p>Increased Agility</p>
+                  <p>Enhanced Disaster Recovery</p>
+                  <p>Improved Management</p>
+                  <p>Testing & Compatibility</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3>POPULAR PLATFORMS</h3>
+                    <p>VMware vSphere</p>
+                     <p>Microsoft Hyper-V</p>
+                      <p>Citrix XenServer</p>
+                       <p>Red Hat Virtualization</p>
+                </div>
+
+                 <div class="category-card">
+                    <h3>SECURITY RISKS</h3>
+                     <p>Hyperjacking (compromised hypervisor).</p>
+                      <p>Escaping from VM to host.</p>
+                       <p>Misconfiguration vulnerabilities.</p>
+                </div>
+
+
+    </section>
+
+    
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title"> Phishing Information</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>TYPES</h3>
+                    <p>Email Phishing</p>
+                     <p>SMS Phishing(Smishing)</p>
+                      <p>Phone Call (Vishing)</p>
+                       <p>Fake Websites</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>HOW TO SPOT PHISHING ATTACKS?</h3>
+                    <p>Unknown Sender</p>
+                     <p>Unrealistic Promises</p>
+                      <p>Poor Spelling & Grammar</p>
+                       <p>Suspicious Links</p>
+                        <p>Urgent Language</p>
+
+                </div>
+
+            <div class="service-card">
+                    <h3>HOW TO AVOID PHISHING ATTACKS?</h3>
+                    <p>Verify the Sender</p>
+                        <p>Don't Click Suspicious Links</p>
+                            <p>Never Share Personal Information</p>
+                                <p>Enable 2-Factor Authentication</p>
+                                    <p>Watch For Urgent or Scare Tactics</p>
+                                     <p>Don't Download Unknown Attachemnt</p>
+                </div>            
+                
+    </section>
+
+        <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title"> General Tips & Privacy</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Backup</h3>
+                    <p>Backups serve as the last line of
+defense when everything else
+fails.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>Regular Updates</h3>
+                    <p>What was secure yesterday,may not be sucure today.</p>
+                </div>
+
+            <div class="service-card">
+                    <h3>Keep your passwords in a secure locations</h3>
+                    <p>Password Manager.</p>
+                </div>            
+                
+    </section>
+
+        <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title"> TERMS</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Authentication</h3>
+                    <p>The process of verifying or proving the user’s identification.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>Privacy</h3>
+                    <p>The right of an individual to control the distribution of information
+about themselves.</p>
+                </div>
+
+            <div class="service-card">
+                    <h3>General Data Protection Regulation (GDPR)</h3>
+                    <p>applies to all organizations, foreign or domestic, doing business in the EU or
+any persons in the EU.</p>
+                </div>      
+                
+                <div class="service-card">
+                    <h3>Trusted Platform Module (TPM)</h3>
+                    <p>TPM is a hardware-based security chip
+Provides a Root of Trust for a computing platform
+Functions independently of the main CPU and OS
+Ensures secure storage, encryption, and attestation.</p>
+
+<h3>VERSIONS</h3>
+<p>TPM 1.2: Basic cryptographic support (SHA-1, RSA).</p>
+<p>TPM 2.0: Stronger crypto algorithms (SHA-256, ECC), flexible
+authorization.</p>
+
+<h3>BENEFITS</h3>
+<p>Protects against:Rootkits & bootkits,Key theft,Unauthorized firmware changes.</p>
+<p>Provides hardware-enforced trust instead of relying on
+software-only security.</p>
+
+                </div>    
+
+                 <div class="service-card">
+                    <h3>Unified Extensible Firmware Interface (UEFI)</h3>
+                    <p>It’s basically the modern replacement for BIOS (Basic
+Input/Output System), which is the traditional firmware that
+starts your computer when you power it on.</p>
+                </div>    
+
+                <div class="service-card">
+                    <h3>Hypervisor</h3>
+                    <p>A software layer that
+manages and allocates physical hardware resources to virtual
+machines, ensuring their isolation and efficient operation.</p>
+       <h3>TYPES</h3>
+                    <p>Type 1: Bare-Metal-
+Runs directly on hardware, offering high performance and
+security (e.g., VMware ESXi, Microsoft Hyper-V).</p>
+  <p>Type 2: Hosted
+Runs- on top of a host operating system (e.g., VirtualBox,
+VMware Workstation).</p>
+
+                </div>    
+         
+                
+    </section>
+    
+    
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Education Street, Knowledge City</p>
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> info@PlatformSecurtitysite.com</p>
+                        <p><i class="fas fa-clock"></i> Monday-Friday: 9AM - 5PM</p>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" placeholder="Enter subject">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" placeholder="Type your message here"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Plarform Security</h3>
+                    <p>Your premier destination for computer education and technology insights.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#Categories">Categories</a></li>
+                        <li><a href="#Services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">PlatformSecurtity</a></li>
+                        <li><a href="#">Computing Platforms</a></li>
+                        <li><a href="#">Virtualization</a></li>
+                        <li><a href="#">Cybersecurity Attacks</a></li>
+                        <li><a href="#">Tips</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest updates and learning resources.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email Address">
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 PlatformSecurtity. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = "var(--primary)";
+                header.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.1)";
+            } else {
+                header.style.background = "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)";
+                header.style.boxShadow = "none";
+            }
+        });
+    </script>
+</body>
+</html>
